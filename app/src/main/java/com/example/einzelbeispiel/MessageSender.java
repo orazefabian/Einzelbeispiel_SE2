@@ -25,6 +25,7 @@ public class MessageSender extends AsyncTask<String,Void,Void> {
             socket = new Socket(InetAddress.getByName("se2-isys.aau.at"), 53212);
             pw = new PrintWriter(socket.getOutputStream());
             pw.write(message);
+
             pw.flush();
             pw.close();
             socket.close();

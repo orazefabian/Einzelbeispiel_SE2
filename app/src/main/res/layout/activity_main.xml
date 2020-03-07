@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/matrikel_txt" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/output_txt"
         android:layout_width="138dp"
         android:layout_height="21dp"
         android:layout_marginTop="107dp"
