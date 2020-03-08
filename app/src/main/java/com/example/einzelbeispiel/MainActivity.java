@@ -9,21 +9,18 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText e1;
-    TextView out1;
+    EditText input;
+    TextView output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        e1 = (EditText)findViewById(R.id.input_txt);
-        out1 = (TextView)findViewById(R.id.output_txt);
+        input = (EditText)findViewById(R.id.input_txt);
+        output = (TextView)findViewById(R.id.output_txt);
     }
 
-    public void send(View v){
-        MessageSender messageSender = new MessageSender();
-        messageSender.execute(e1.getText().toString());
-    }
+
 
 
 }
