@@ -15,36 +15,33 @@ public class TCP_Client extends Thread {
     private BufferedReader in;
     private Socket socket = null;
 
-    public TCP_Client(String matrikelnummer){
+    public TCP_Client(String matrikelnummer) {
         this.matrikelnummer = matrikelnummer;
     }
 
     @Override
     public void run() {
-
         try {
             socket = new Socket("se2-isys.aau.at", 53212);
             out = new DataOutputStream(socket.getOutputStream());
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            out.writeBytes(matrikelnummer);
+            // necessary otherwise it won't work!
+            out.writeBytes(matrikelnummer + "\n");
+
             answerFromServer = in.readLine();
-            out.flush();
-            in.close();
+
+
             socket.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
         }
-
-
     }
 
     public String getAnswerFromServer() {
 
         return answerFromServer;
     }
-
 
 
 }
