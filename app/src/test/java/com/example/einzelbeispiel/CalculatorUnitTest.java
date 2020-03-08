@@ -30,4 +30,10 @@ public class CalculatorUnitTest {
         String exp = "Es gibt keine Zahlen mit gleichem Teiler!";
         assertEquals(exp, Calculator.calculate_Common_factors("1101279"));
     }
+
+    @Test
+    public void test_error_expected(){
+        String exp = "Es sind nur Nummern erlaubt!";
+        assertEquals(exp, Calculator.calculate_Common_factors("123hlkl3"));
+    }
 }
