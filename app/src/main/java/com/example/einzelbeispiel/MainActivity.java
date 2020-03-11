@@ -2,11 +2,23 @@ package com.example.einzelbeispiel;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.reactivestreams.Subscription;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +43,12 @@ public class MainActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendToServer();
+                String matrikelnummer = input.getText().toString();
+                Flowable.fromCallable(() -> sendToServer(matrikelnummer))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(Schedulers.single())
+                        .subscribe(s -> runOnUiThread(() -> output.setText(s)));
+
             }
         });
         calc.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 calculateOutput();
             }
         });
-
 
     }
 
@@ -51,16 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void sendToServer() {
-        TCP_Client client = new TCP_Client(input.getText().toString());
-        client.start();
-        try {
-            client.join(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        output.setText(client.getAnswerFromServer());
-
+    private String sendToServer(String matrikelnummer) {
+        TCP_Client client = new TCP_Client(matrikelnummer);
+        client.connectToServer();
+        return client.getAnswerFromServer();
     }
 
 

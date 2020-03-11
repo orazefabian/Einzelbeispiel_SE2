@@ -15,7 +15,8 @@ public class Calculator {
                         if (num2 > 1) {
                             for (int j = 2; j < 10; j++) {
                                 if (num1 % j == 0 && num2 % j == 0) {
-                                    output = "Index [" + i + "] und Index [" + i2 + "] haben denselben Teiler!";
+                                    return "Index [" + i + "] und Index [" + i2 + "] haben denselben Teiler!";
+
                                 }
                             }
                         }

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class TCP_Client extends Thread {
+public class TCP_Client {
 
 
     private String matrikelnummer;
@@ -19,8 +19,7 @@ public class TCP_Client extends Thread {
         this.matrikelnummer = matrikelnummer;
     }
 
-    @Override
-    public void run() {
+    public String connectToServer() {
         try {
             socket = new Socket("se2-isys.aau.at", 53212);
             out = new DataOutputStream(socket.getOutputStream());
@@ -30,11 +29,15 @@ public class TCP_Client extends Thread {
             out.writeBytes(matrikelnummer + "\n");
 
             answerFromServer = in.readLine();
-
-
+            socket.close();
+            out.flush();
+            in.close();
             socket.close();
 
+            return answerFromServer;
+
         } catch (Exception ex) {
+            return null;
         }
     }
 

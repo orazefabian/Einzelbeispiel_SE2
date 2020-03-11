@@ -14,7 +14,7 @@ public class CalculatorUnitTest {
 
     @Test
     public void test_calculator_with_11808426(){
-        String exp = "Index [6] und Index [7] haben denselben Teiler!";
+        String exp = "Index [2] und Index [4] haben denselben Teiler!";
         assertEquals(exp, Calculator.calculate_Common_factors("11808426"));
 
     }
